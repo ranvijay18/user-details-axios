@@ -8,35 +8,17 @@ form.addEventListener('submit', store);
 //     localStorage.setItem(document.getElementById('email').value, document.getElementById('email').value);
 // } 
 
+window.addEventListener('DOMContentLoaded' , () => {
+  axios.get('https://crudcrud.com/api/4a0e7b63a8e444e495ea8476b5d75c7c/ap')
+  .then((res) => {
+    let data = Object.values(res.data);
 
-axios.get('https://crudcrud.com/api/7456c9a38bba44d5a6763189be930ea3/appointment')
-.then(res => showGetData(res.data));
-
-
-
-showGetData = (res) => {
-  let Data = Object.values(res);
-
-
-  Data.forEach(ele => {
-    var li = document.createElement('li');
-    var detail = ele['name'] + ", " + ele['email'];
-    li.appendChild(document.createTextNode(detail));
-    document.getElementById("text").appendChild(li);
-  
-  
-    var edit = document.createElement('button');
-  edit.className = 'btn btn-success btn-sm edit';
-  edit.appendChild(document.createTextNode('Edit'));
-  li.append(edit);
-  
-    var deleteBtn = document.createElement('button');
-  deleteBtn.className = 'btn btn-danger btn-sm delete';
-  deleteBtn.appendChild(document.createTextNode('Delete'));
-  li.appendChild(deleteBtn);
-  })
-  
-}
+    data.forEach(ele => {
+      showOnScreen(ele)
+    });
+    
+  });
+})
 
 showOnScreen = (res) => {
 
@@ -56,18 +38,16 @@ deleteBtn.className = 'btn btn-danger btn-sm delete';
 deleteBtn.appendChild(document.createTextNode('Delete'));
 li.appendChild(deleteBtn);
 
-// deleteBtn.onclick = () =>{
-//   localStorage.removeItem(myobj.email);
-//   itemList.removeChild(li);
-// }
 
-// edit.onclick = () =>{
-//   localStorage.removeItem(myobj.email);
-//   itemList.removeChild(li);
-//   document.getElementById('name').value = name;
-//   document.getElementById('email').value = email;
-// }
+deleteBtn.onclick = () =>{
+
+  axios.delete('https://crudcrud.com/api/4a0e7b63a8e444e495ea8476b5d75c7c/ap/' + res['_id'])
+  itemList.removeChild(li);
+}
+
  }
+
+
 
 
 function store(e){
@@ -79,7 +59,7 @@ function store(e){
         email 
     }
 
-    axios.post('https://crudcrud.com/api/7456c9a38bba44d5a6763189be930ea3/appointment',myobj)
+    axios.post('https://crudcrud.com/api/4a0e7b63a8e444e495ea8476b5d75c7c/ap',myobj)
     .then(res => showOnScreen(res.data))
 }
 
