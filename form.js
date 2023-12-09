@@ -38,6 +38,14 @@ deleteBtn.className = 'btn btn-danger btn-sm delete';
 deleteBtn.appendChild(document.createTextNode('Delete'));
 li.appendChild(deleteBtn);
 
+edit.onclick = () =>{
+  axios.put('https://crudcrud.com/api/59aae8a8c8724b6e90dfb4e8ee7c37f6/ap/' + res['id'])
+  axios.delete('https://crudcrud.com/api/59aae8a8c8724b6e90dfb4e8ee7c37f6/ap/' + res['_id'])
+  itemList.removeChild(li);
+  document.getElementById('name').value = res['name'];
+  document.getElementById('email').value = res['email'];
+}
+
 
 deleteBtn.onclick = () =>{
 
